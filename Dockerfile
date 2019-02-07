@@ -9,12 +9,14 @@ RUN apk update && \
 WORKDIR /var/wiki
 
 COPY tools/build/supervisord.conf /etc/supervisord.conf
-COPY assets .
-COPY server .
+COPY assets ./assets
+COPY server ./server
+COPY tools ./tools
 COPY config.sample.yml .
 COPY package.json .
 COPY LICENSE .
 RUN npm install
+RUN npm run build
 
 EXPOSE 3000
 
