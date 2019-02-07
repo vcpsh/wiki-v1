@@ -238,7 +238,8 @@ module.exports = function (passport) {
       clientID: appconfig.auth.oidc.clientId,
       clientSecret: appconfig.auth.oidc.clientSecret,
       issuer: appconfig.auth.oidc.issuer,
-      callbackURL: appconfig.host + '/login/oidc/callback'
+      callbackURL: appconfig.host + '/login/oidc/callback',
+      scope: appconfig.auth.oidc.scope
     }, (iss, sub, profile, jwtClaims, accessToken, refreshToken, params, cb) => {
       db.User.processProfile({
         id: jwtClaims.sub,

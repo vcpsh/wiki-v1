@@ -1,5 +1,5 @@
 FROM node:8-alpine
-LABEL maintainer="requarks.io"
+LABEL maintainer="VCP Land Schleswig-Holstein e.V."
 
 RUN apk update && \
     apk add bash curl git openssh supervisor --no-cache && \
@@ -8,10 +8,13 @@ RUN apk update && \
 
 WORKDIR /var/wiki
 
-COPY supervisord.conf /etc/supervisord.conf
-COPY . /var/wiki
-
-ENV WIKI_JS_HEROKU=1
+COPY tools/build/supervisord.conf /etc/supervisord.conf
+COPY assets .
+COPY server .
+COPY config.sample.yml .
+COPY package.json .
+COPY LICENSE .
+RUN npm install
 
 EXPOSE 3000
 
